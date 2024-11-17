@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ApiClientService } from '../../services/api-client.service';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
+import { AssemblyTreeComponent } from '../assembly-tree/assembly-tree.component';
 
 @Component({
   selector: 'app-assembly',
   standalone: true,
-  imports: [CommonModule, AgGridModule],
+  imports: [CommonModule, AgGridModule, AssemblyTreeComponent],
   templateUrl: './assembly.component.html',
   styleUrls: ['./assembly.component.css'],
 })

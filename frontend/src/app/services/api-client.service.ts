@@ -6,17 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiClientService {
-  private baseUrl = '/poeassy/assembly/'; // URL base de la API, ruta relativa.
+
+  private apiUrl = 'http://127.0.0.1:8000/poeassy/assembly/'; 
 
   constructor(private http: HttpClient) {}
 
   getAssemblies(): Observable<any> {
-    return this.http.get<any>(this.baseUrl);
+    return this.http.get<any>(this.apiUrl);
   }
 
   getAssembly(assemblyId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}${assemblyId}`);
+    return this.http.get<any>(`${this.apiUrl}${assemblyId}`);
   }
 }
-
-//nuevo

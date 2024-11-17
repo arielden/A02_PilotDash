@@ -23,17 +23,9 @@
     </ng-container>
   
     <ng-template #detailView>
-      <div class="card">
-        <div class="card-header">
-          <h5>Assembly Details</h5>
-        </div>
-        <div class="card-body">
-          <p><strong>Name:</strong> {{ selectedAssembly?.assembly_name }}</p>
-          <p><strong>Supplier:</strong> {{ selectedAssembly?.supplier?.supplier_name }}</p>
-        </div>
-        <div class="card-footer">
-          <button class="btn btn-secondary" (click)="returnToTable()">Back to Table</button>
-        </div>
+      <app-assembly-tree [assemblyData]="selectedAssembly"></app-assembly-tree>
+      <div class="card-footer">
+        <button class="btn btn-secondary" (click)="returnToTable()">Back to Table</button>
       </div>
     </ng-template>
   </div>
