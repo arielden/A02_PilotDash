@@ -93,7 +93,6 @@ export class AssemblyComponent implements OnInit {
 
   onGridReady(params: any): void {
     params.api.addEventListener('cellClicked', (event: any) => {
-      console.log('cellClicked event:', event.event.target.dataset);
 
       const action = event.event.target.dataset.action; // Obtiene la acción (view o edit)
       const assemblyId = event.event.target.dataset.id; // Obtiene el ID del ensamblaje

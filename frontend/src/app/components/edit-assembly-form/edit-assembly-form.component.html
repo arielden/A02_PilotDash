@@ -50,17 +50,13 @@
           </select>
         </div>
         <div class="mb-3">
-          <label for="supplier_name" class="form-label">Supplier</label>
-          <select
-            id="supplier_name"
-            formControlName="supplier_id"
-            class="form-select"
-          >
-            <option *ngFor="let supplier of suppliers" [value]="supplier.id">
+          <label for="supplier" class="form-label">Supplier</label>
+          <select id="supplier" formControlName="supplier" class="form-select">
+            <option *ngFor="let supplier of suppliers" [value]="supplier.supplier_name">
               {{ supplier.supplier_name }}
             </option>
-          </select>
-        </div>
+          </select>          
+        </div>        
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary ms-2" (click)="cancel()">Cancel</button>
       </form>

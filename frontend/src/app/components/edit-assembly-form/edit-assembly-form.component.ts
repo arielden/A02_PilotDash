@@ -37,8 +37,8 @@ export class EditAssemblyFormComponent implements OnInit {
       indice: [this.assembly?.indice || '', Validators.required],
       version: [this.assembly?.version || '', Validators.required],
       eng_type: [this.assembly?.eng_type || 1, Validators.required],
-      supplier_id: [this.assembly?.supplier?.id || '', Validators.required],
-    });
+      supplier: [this.assembly?.supplier?.supplier_name || '', Validators.required],
+    });    
   }
 
   saveChanges(): void {
@@ -47,9 +47,6 @@ export class EditAssemblyFormComponent implements OnInit {
         ...this.assembly,
         ...this.editForm.value, // Incluye el ID del supplier
       };
-  
-      // Eliminar el campo 'supplier', ya que solo necesitamos enviar 'supplier_id'
-      delete updatedAssembly.supplier;
   
       console.log('Datos enviados al backend:', updatedAssembly); // Verifica los datos actualizados
   

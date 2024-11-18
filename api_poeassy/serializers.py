@@ -52,11 +52,42 @@ class SubAssemblySerializer(serializers.ModelSerializer):
         model = AssemblySubAssembly
         fields = ('sub_assembly', 'coef')
 
-# Main AssemblySerializer
-class AssemblySerializer(SubAssemblyDetailSerializer):
+# New Assembly Serializer - Works with the tree view.
+class AssemblySerializer(serializers.ModelSerializer):
+    supplier = serializers.CharField(write_only=True)
+    supplier_name = serializers.CharField(source='supplier.supplier_name', read_only=True)
     sub_assemblies = SubAssemblySerializer(source='assyparent_subassy', many=True, required=False)
     parts = AssemblyPartSerializer(source='assyparent_part', many=True, required=False)
     rmus = AssemblyRmuSerializer(source='assyparent_rmu', many=True, required=False)
+
+    class Meta:
+        model = Assembly
+        fields = (
+            'id', 'assembly_name', 'part_number', 'indice', 'version', 'supplier',
+            'supplier_name', 'sub_assemblies', 'parts', 'rmus'
+        )
+
+    def validate(self, attrs):
+        # Supplier name valitation and object transform.
+        supplier_name = attrs.pop('supplier', None)
+        if supplier_name:
+            try:
+                supplier = Supplier.objects.get(supplier_name=supplier_name)
+                attrs['supplier'] = supplier
+            except Supplier.DoesNotExist:
+                raise serializers.ValidationError(f"Supplier '{supplier_name}' does not exist.")
+        else:
+            raise serializers.ValidationError("Supplier name is required.")
+        return attrs
+
+    def update(self, instance, validated_data):
+        # Assy updated with validated supplier
+        supplier = validated_data.pop('supplier', None)
+        if supplier:
+            instance.supplier = supplier
+        return super().update(instance, validated_data)
+
+
 
 # Basic AssemblySerializer, only for SETs
 class BasicAssySerializer(serializers.ModelSerializer):
