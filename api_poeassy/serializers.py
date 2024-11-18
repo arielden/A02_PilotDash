@@ -64,4 +64,3 @@ class BasicAssySerializer(serializers.ModelSerializer):
     class Meta:
         model = Assembly
         fields = ('id', 'assembly_name', 'part_number', 'indice', 'version', 'supplier')
-

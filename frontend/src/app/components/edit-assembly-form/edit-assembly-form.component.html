@@ -1,1 +1,69 @@
-<p>edit-assembly-form works!</p>
+<div class="card mb-4">
+    <div class="card-header">Edit Assembly</div>
+    <div class="card-body">
+      <form [formGroup]="editForm" (ngSubmit)="saveChanges()">
+        <div class="mb-3">
+          <label for="assembly_name" class="form-label">Assembly Name</label>
+          <input
+            type="text"
+            id="assembly_name"
+            formControlName="assembly_name"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="part_number" class="form-label">Part Number</label>
+          <input
+            type="text"
+            id="part_number"
+            formControlName="part_number"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="indice" class="form-label">Index</label>
+          <input
+            type="text"
+            id="indice"
+            formControlName="indice"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="version" class="form-label">Version</label>
+          <input
+            type="number"
+            id="version"
+            formControlName="version"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="eng_type" class="form-label">Eng Type</label>
+          <select
+            id="eng_type"
+            formControlName="eng_type"
+            class="form-select"
+          >
+            <option value="1">SET</option>
+            <option value="2">ASSY</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="supplier_name" class="form-label">Supplier</label>
+          <select
+            id="supplier_name"
+            formControlName="supplier_id"
+            class="form-select"
+          >
+            <option *ngFor="let supplier of suppliers" [value]="supplier.id">
+              {{ supplier.supplier_name }}
+            </option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="cancel()">Cancel</button>
+      </form>
+    </div>
+  </div>
+  

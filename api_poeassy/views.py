@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import Part, Assembly
-from .serializers import PartSerializer, AssemblySerializer, BasicAssySerializer
+from .models import Part, Assembly, Supplier
+from .serializers import PartSerializer, AssemblySerializer, BasicAssySerializer, SupplierSerializer
 
 class PartList(generics.ListCreateAPIView):
     serializer_class = PartSerializer
@@ -31,3 +31,9 @@ class AssemblyList(generics.ListCreateAPIView):
 class AssemblyDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AssemblySerializer
     queryset = Assembly.objects.all()
+
+class SupplierList(generics.ListCreateAPIView):
+    serializer_class = SupplierSerializer
+    def get_queryset(self):
+        # Filtramos sólo los assy del typo SET
+        return Supplier.objects.all()
