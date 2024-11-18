@@ -1,15 +1,36 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
+import { AssemblyActionsComponent } from '../assembly-actions/assembly-actions.component';
+import { EditAssemblyFormComponent } from '../edit-assembly-form/edit-assembly-form.component';
 
 @Component({
   selector: 'app-assembly-tree',
   standalone: true,
-  imports: [CommonModule, AgGridModule],
+  imports: [CommonModule, AgGridModule, EditAssemblyFormComponent],
   templateUrl: './assembly-tree.component.html',
-  styleUrls: ['./assembly-tree.component.css'],
+  styleUrls: ['./assembly-tree.component.css'], 
 })
+
+
 export class AssemblyTreeComponent implements OnInit {
+
+  isEditFormVisible = false; // Controla si se muestra el formulario de edición
+  selectedAssembly: any = null; // Almacena el ensamblaje seleccionado
+
+  openEditForm(assembly: any): void {
+    console.log('Opening edit form for assembly:', assembly); // Depuración
+    if (assembly) {
+      this.selectedAssembly = assembly; // Asegúrate de que assembly tiene todos los datos
+      this.isEditFormVisible = true;
+    }
+  }  
+  
+  closeEditForm(): void {
+    this.isEditFormVisible = false;   // Oculta el formulario
+    this.selectedAssembly = null;    // Limpia el ensamblaje seleccionado
+  }
+
   @Input() assemblyData: any; // Recibe los datos del ensamblaje
   rowData: any[] = []; // Datos para la tabla
   columnDefs: any[] = []; // Configuración de columnas
@@ -18,6 +39,7 @@ export class AssemblyTreeComponent implements OnInit {
     filter: true,
     resizable: true,
   };
+
   gridOptions = {
     pagination: true,
     paginationPageSize: 10,
@@ -40,6 +62,15 @@ export class AssemblyTreeComponent implements OnInit {
       { field: 'coef', headerName: 'Coef', width: 100 },
       { field: 'condition', headerName: 'Condition', width: 100 },
       { field: 'supplierName', headerName: 'Supplier Name', width: 180 },
+      {
+        field: 'actions',
+        headerName: 'Actions',
+        cellRenderer: AssemblyActionsComponent,
+        cellRendererParams: {
+          editClicked: (data: any) => this.openEditForm(data),
+        },
+        width: 180,
+      }      
     ];
 
     // Construir los datos jerárquicos
@@ -59,7 +90,7 @@ export class AssemblyTreeComponent implements OnInit {
       version: assembly.version,
       thickness: '--',
       mass: '--',
-      supplierName: '--',
+      supplierName: assembly.supplier_name,
     });
 
     // Partes del ensamblaje principal

@@ -85,9 +85,9 @@ export class AssemblyComponent implements OnInit {
 
   actionCellRenderer(params: any): string {
     return `
-      <button class="btn btn-outline-primary btn-sm" data-action="view" data-id="${params.data.id}">Ver</button>
-      <button class="btn btn-outline-secondary btn-sm" data-action="edit" data-id="${params.data.id}">Editar</button>
-      <button class="btn btn-outline-danger btn-sm" data-action="delete" data-id="${params.data.id}">Eliminar</button>
+      <button class="btn btn-outline-primary btn-sm" data-action="view" data-id="${params.data.id}">View</button>
+      <button class="btn btn-outline-secondary btn-sm" data-action="edit" data-id="${params.data.id}">Edit</button>
+      <button class="btn btn-outline-danger btn-sm" data-action="delete" data-id="${params.data.id}">Delete</button>
     `;
   }
 

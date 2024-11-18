@@ -32,8 +32,8 @@ export class EditAssemblyFormComponent implements OnInit {
 
     // Inicializa el formulario con los datos del ensamblaje
     this.editForm = this.fb.group({
-      assembly_name: [this.assembly?.assembly_name || '', Validators.required],
-      part_number: [this.assembly?.part_number || '', Validators.required],
+      assembly_name: [this.assembly?.designation || '', Validators.required],
+      part_number: [this.assembly?.partNumber || '', Validators.required],
       indice: [this.assembly?.indice || '', Validators.required],
       version: [this.assembly?.version || '', Validators.required],
       eng_type: [this.assembly?.eng_type || 1, Validators.required],
