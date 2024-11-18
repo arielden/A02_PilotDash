@@ -84,6 +84,7 @@ export class AssemblyTreeComponent implements OnInit {
 
     // Ensamblaje principal
     rows.push({
+      id: assembly.id,
       designation: assembly.assembly_name,
       partNumber: assembly.part_number,
       indice: assembly.indice,

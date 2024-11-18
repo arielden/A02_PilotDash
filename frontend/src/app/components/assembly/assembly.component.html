@@ -1,7 +1,7 @@
 <div class="container my-4">
   <h1>Assembly Structure</h1>
 
-  <ng-container *ngIf="!selectedAssembly && !isEditing; else activeView">
+  <ng-container *ngIf="!selectedAssembly; else activeView">
     <!-- Tabla principal -->
     <div class="card mb-4">
       <div class="card-header">
@@ -25,21 +25,12 @@
   </ng-container>
 
   <ng-template #activeView>
-    <ng-container *ngIf="selectedAssembly && !isEditing; else editForm">
+    <ng-container *ngIf="selectedAssembly">
       <!-- Detalles del ensamblaje -->
       <app-assembly-tree [assemblyData]="selectedAssembly"></app-assembly-tree>
       <div class="card-footer">
         <button class="btn btn-secondary" (click)="returnToTable()">Back to Table</button>
       </div>
     </ng-container>
-
-    <ng-template #editForm>
-      <!-- Formulario de edición -->
-      <app-edit-assembly-form
-        [assembly]="assemblyToEdit"
-        (onCancel)="cancelEdit()"
-        (onSave)="saveEdit()">
-      </app-edit-assembly-form>
-    </ng-template>
   </ng-template>
 </div>

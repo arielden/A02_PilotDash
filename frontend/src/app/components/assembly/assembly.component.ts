@@ -3,12 +3,11 @@ import { ApiClientService } from '../../services/api-client.service';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 import { AssemblyTreeComponent } from '../assembly-tree/assembly-tree.component';
-import { EditAssemblyFormComponent } from '../edit-assembly-form/edit-assembly-form.component';
 
 @Component({
   selector: 'app-assembly',
   standalone: true,
-  imports: [CommonModule, AgGridModule, AssemblyTreeComponent, EditAssemblyFormComponent],
+  imports: [CommonModule, AgGridModule, AssemblyTreeComponent],
   templateUrl: './assembly.component.html',
   styleUrls: ['./assembly.component.css'],
 })
@@ -23,7 +22,7 @@ export class AssemblyComponent implements OnInit {
     {
       headerName: 'Actions',
       cellRenderer: this.actionCellRenderer.bind(this),
-      width: 250
+      width: 180
     },
   ];
   defaultColDef = {
@@ -38,9 +37,6 @@ export class AssemblyComponent implements OnInit {
   };
   
   selectedAssembly: any = null;
-  isEditing: boolean = false; // Indica si estamos editando
-  assemblyToEdit: any = null; // Contiene los datos del ensamblaje a editar
-
 
   constructor(private apiClient: ApiClientService) {}
 
@@ -64,29 +60,11 @@ export class AssemblyComponent implements OnInit {
 
   returnToTable(): void {
     this.selectedAssembly = null;
-    this.isEditing = false;
-  }
-
-  editAssembly(assembly: any): void {
-    console.log('Editing assembly:', assembly);
-    this.isEditing = true;
-    this.assemblyToEdit = assembly; // Asigna el ensamblaje a editar
-  }
-
-  cancelEdit(): void {
-    this.isEditing = false; // Salir del modo edición
-    this.assemblyToEdit = null; // Limpia el ensamblaje seleccionado
-  }
-
-  saveEdit(): void {
-    this.isEditing = false; // Salir del modo edición
-    this.loadAssemblies(); // Recargar la lista de ensamblajes
   }
 
   actionCellRenderer(params: any): string {
     return `
       <button class="btn btn-outline-primary btn-sm" data-action="view" data-id="${params.data.id}">View</button>
-      <button class="btn btn-outline-secondary btn-sm" data-action="edit" data-id="${params.data.id}">Edit</button>
       <button class="btn btn-outline-danger btn-sm" data-action="delete" data-id="${params.data.id}">Delete</button>
     `;
   }
@@ -99,9 +77,6 @@ export class AssemblyComponent implements OnInit {
   
       if (action === 'view') {
         this.viewAssembly(assemblyId); // Llama al método para ver detalles
-      } else if (action === 'edit') {
-        const assembly = this.assemblies.find((a) => a.id === Number(assemblyId)); // Busca el ensamblaje por ID
-        this.editAssembly(assembly); // Llama al método para editar
       }
     });
   }
