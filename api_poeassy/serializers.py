@@ -10,7 +10,7 @@ class PartSerializer(serializers.ModelSerializer):
     supplier = SupplierSerializer()
     class Meta:
         model = Part
-        fields = ('id', 'part_number', 'designation', 'thickness', 'mass', 'supplier', 'condition', 'part_property')
+        fields = ('id', 'part_number', 'indice', 'version', 'designation', 'thickness', 'mass', 'supplier', 'condition', 'part_property')
 
 class RmuSerializer(serializers.ModelSerializer):
     class Meta:

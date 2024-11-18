@@ -14,11 +14,15 @@ import { AssemblyTreeComponent } from '../assembly-tree/assembly-tree.component'
 export class AssemblyComponent implements OnInit {
   assemblies: any[] = [];
   columnDefs = [
-    { field: 'assembly_name', headerName: 'Assembly Name' },
-    { field: 'supplier.supplier_name', headerName: 'Supplier' },
+    { field: 'assembly_name', headerName: 'Assembly Name', width: 200 },
+    { field: 'part_number', headerName: 'Part Number', width: 180 },
+    { field: 'indice', headerName: 'Index', width: 100 },
+    { field: 'version', headerName: 'Version', width: 100 },
+    { field: 'supplier.supplier_name', headerName: 'Supplier', width: 180 },
     {
       headerName: 'Actions',
       cellRenderer: this.actionCellRenderer.bind(this),
+      width: 250
     },
   ];
   defaultColDef = {

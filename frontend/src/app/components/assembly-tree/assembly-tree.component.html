@@ -1,85 +1,18 @@
 <div class="card mb-4">
-    <div class="card-header">
-      <i class="fas fa-table me-1"></i>
-      {{ assemblyData?.assembly_name }}
-    </div>
-    <div class="card-body">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Designation</th>
-            <th>Part Number</th>
-            <th>Thickness</th>
-            <th>Mass</th>
-            <th>Supplier Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Ensamblaje Principal -->
-          <tr class="assembly-row">
-            <td>{{ assemblyData?.assembly_name }}</td>
-            <td>{{ assemblyData?.part_number }}</td>
-            <td>--</td>
-            <td>--</td>
-            <td>--</td>
-          </tr>
-  
-          <!-- Partes del Ensamblaje Principal -->
-          <ng-container *ngFor="let part of assemblyData?.parts">
-            <tr class="part-row">
-              <td style="padding-left: 20px;">{{ part?.part?.designation }}</td>
-              <td>{{ part?.part?.part_number }}</td>
-              <td>{{ part?.part?.thickness }}</td>
-              <td>{{ part?.part?.mass }}</td>
-              <td>{{ part?.part?.supplier?.supplier_name }}</td>
-            </tr>
-          </ng-container>
-  
-          <!-- RMUs del Ensamblaje Principal -->
-          <ng-container *ngFor="let rmu of assemblyData?.rmus">
-            <tr class="rmu-row">
-              <td style="padding-left: 20px;">{{ rmu?.rmu?.designation }}</td>
-              <td>{{ rmu?.rmu?.part_number }}</td>
-              <td>--</td>
-              <td>{{ rmu?.rmu?.mass }}</td>
-              <td>--</td>
-            </tr>
-          </ng-container>
-  
-          <!-- Sub-ensamblajes -->
-          <ng-container *ngFor="let subAssembly of assemblyData?.sub_assemblies">
-            <tr class="sub-assembly-row">
-              <td style="padding-left: 20px;">{{ subAssembly?.sub_assembly?.assembly_name }}</td>
-              <td>{{ subAssembly?.sub_assembly?.part_number }}</td>
-              <td>--</td>
-              <td>--</td>
-              <td>--</td>
-            </tr>
-  
-            <!-- Partes del Sub-ensamblaje -->
-            <ng-container *ngFor="let part of subAssembly?.sub_assembly?.parts">
-              <tr class="part-row">
-                <td style="padding-left: 40px;">{{ part?.part?.designation }}</td>
-                <td>{{ part?.part?.part_number }}</td>
-                <td>{{ part?.part?.thickness }}</td>
-                <td>{{ part?.part?.mass }}</td>
-                <td>{{ part?.part?.supplier?.supplier_name }}</td>
-              </tr>
-            </ng-container>
-  
-            <!-- RMUs del Sub-ensamblaje -->
-            <ng-container *ngFor="let rmu of subAssembly?.sub_assembly?.rmus">
-              <tr class="rmu-row">
-                <td style="padding-left: 40px;">{{ rmu?.rmu?.designation }}</td>
-                <td>{{ rmu?.rmu?.part_number }}</td>
-                <td>--</td>
-                <td>{{ rmu?.rmu?.mass }}</td>
-                <td>--</td>
-              </tr>
-            </ng-container>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
+  <div class="card-header">
+    <i class="fas fa-table me-1"></i>
+    Assembly Tree - {{ assemblyData?.assembly_name }}
   </div>
-  
+  <div class="card-body">
+    <ag-grid-angular
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationPageSize]="gridOptions.paginationPageSize"
+      [paginationPageSizeSelector]="gridOptions.paginationPageSizeSelector"
+      style="width: 100%; height: 500px;">
+    </ag-grid-angular>
+  </div>
+</div>
